@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".student.pastCoursesFragment">
+
+
+    <LinearLayout
+        android:id="@+id/LL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/takkenCourseBTN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/circle_green"
+                android:text="takken"
+                android:textColor="#fff" />
+
+            <TextView
+                android:id="@+id/takkenCourseTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:gravity="center_vertical"
+                android:layout_toEndOf="@+id/takkenCourseBTN"
+                android:text="takken" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/inProgressCourseBTN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/circle_yellow"
+                android:text="in Progress"
+                android:textColor="#fff" />
+
+            <TextView
+                android:id="@+id/inProgressCourseTV"
+                android:layout_toEndOf="@+id/inProgressCourseBTN"
+                android:layout_alignBaseline="@+id/inProgressCourseBTN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="in Progress" />
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/notCompletedCoursesBTN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/circle_red"
+                android:text="Not completed"
+                android:textColor="#fff" />
+
+            <TextView
+                android:id="@+id/notCompletedCoursesTV"
+                android:layout_toEndOf="@+id/notCompletedCoursesBTN"
+                android:layout_alignBaseline="@+id/notCompletedCoursesBTN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Not completed" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_below="@+id/LL"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/list"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="200dp">
+
+        <TextView
+            android:id="@+id/takkenHoursTotalTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total takken cradits" />
+
+        <TextView
+            android:id="@+id/takkenHoursTotalVal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="150" />
+
+        <TextView
+            android:id="@+id/inProgressHoursTotalTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total inProgress cradits" />
+
+        <TextView
+            android:id="@+id/inProgressHoursTotalVal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="150" />
+
+        <TextView
+            android:id="@+id/notCompletedHoursTotalTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total notCompleted cradits" />
+
+        <TextView
+            android:id="@+id/notCompletedTotalVal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="150" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "439552771773",
+    "firebase_url": "https://srrs-24709.firebaseio.com",
+    "project_id": "srrs-24709",
+    "storage_bucket": "srrs-24709.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439552771773:android:0530140a21e89c63",
+        "android_client_info": {
+          "package_name": "com.heshamapps.srrs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439552771773-oep93n148j7sopeqie6s2kp57a6vfc0k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA79draNv4zB1CHlp6ab4pQxNOSctUKd8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
