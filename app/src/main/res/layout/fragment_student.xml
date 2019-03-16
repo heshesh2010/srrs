@@ -61,7 +61,8 @@
                     </LinearLayout>
                 </ScrollView>
 
-                <RelativeLayout
+                <LinearLayout
+                    android:gravity="center_horizontal|clip_horizontal"
                     android:id="@+id/firstTermHoursLinerLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -73,25 +74,41 @@
                         android:id="@+id/firstTermTotalCreditHoursSelected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/first_save"
-                        android:text="total Hours"
-                        android:layout_alignParentStart="true" />
+                        android:text="total Hours" />
 
-                    <Button
+                    <TextView
+                        android:id="@+id/firstTermTotalCreditHoursSelectedVal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="0"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/first_gpa"
+                        android:hint="GPA"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </androidx.appcompat.widget.AppCompatEditText>
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:id="@+id/first_save"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="save"
-                        android:layout_toStartOf="@+id/first_next" />
+                        />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:id="@+id/first_next"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
                         android:text="next" />
 
-                </RelativeLayout>
+                </LinearLayout>
             </RelativeLayout>
 
 
@@ -133,38 +150,53 @@
 
                 </ScrollView>
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/secondTermHoursLinerLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|clip_horizontal"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/secondTermTotalCreditHoursSelected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/second_save"
-                        android:text="total Hours"
-                        android:layout_alignParentStart="true" />
+                        android:text="total Hours" />
 
-                    <Button
+                    <TextView
+                        android:id="@+id/secondTermTotalCreditHoursSelectedVal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="0"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/second_gpa"
+                        android:hint="GPA"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:id="@+id/second_save"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="save:"
-                        android:layout_toStartOf="@+id/second_next" />
+                        android:text="save" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:id="@+id/second_next"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="next:"
-                        android:layout_alignParentEnd="true" />
+                        android:text="next" />
 
-                </RelativeLayout>
+                </LinearLayout>
             </RelativeLayout>
 
 
@@ -202,39 +234,53 @@
                 </ScrollView>
 
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/summerTermHoursLinerLayout"
+                    android:gravity="center_horizontal|clip_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_alignParentBottom="true"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/summerTermTotalCreditHoursSelected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_alignBaseline="@+id/summer_save"
                         android:text="total Hours"
-                        android:layout_alignParentStart="true" />
+                        />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/summer_gpa"
+                        android:hint="GPA"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/summerTermTotalCreditHoursSelectedVal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="0"
+                        />
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:id="@+id/summer_save"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="save:"
-                        android:layout_toStartOf="@+id/summer_next" />
+                        android:text="save" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:id="@+id/summer_next"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="next:"
-                        android:layout_alignParentEnd="true" />
+                        android:text="next" />
 
-                </RelativeLayout>
+                </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
 
