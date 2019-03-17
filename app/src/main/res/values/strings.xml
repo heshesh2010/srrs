@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">srrs</string>
+    <string name="app_name">S.R.R.S</string>
     <string name="loginActivity_name">Login</string>
     <string name="loginActivity_usernameTV">User ID :</string>
     <string name="loginActivity_usernameET">Type your Id here</string>

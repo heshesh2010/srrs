@@ -1,6 +1,7 @@
 package com.heshamapps.srrs.student;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentReference;
@@ -28,6 +30,7 @@ import com.heshamapps.srrs.models.Courses;
 import com.heshamapps.srrs.models.compareCourses;
 import com.heshamapps.srrs.util.MyCallback;
 import com.heshamapps.srrs.util.MyCallback2;
+import com.heshamapps.srrs.util.MyCallback3;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -101,7 +104,7 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
 
     ArrayList<String> totalPostCoursesList = new ArrayList<String>();
 
-    String gpaLimit;
+    int allowableCreditHours;
 
     public studentFragment() {
         // Required empty public constructor
@@ -201,13 +204,13 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
     }
 
 
-    void getCoursesDetails(ArrayList<String> openedCourses, MyCallback2 myCallback2) {
+    void getPostCoursesHours(ArrayList<String> openedCourses, MyCallback myCallback2) {
 
-        // Get full details of every opened course
+        // Get full details of every openinig course
 
         db.collection("courses").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                ArrayList<Courses> finalList = new ArrayList<Courses>();
+                ArrayList<Courses> finalList = new ArrayList<>();
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     for (String courseCode : openedCourses) {
                         if (courseCode.equals(document.toObject(Courses.class).getCourseCode())) {
@@ -215,7 +218,7 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
                         }
                     }
                 }
-                myCallback2.onCallback(finalList);
+                myCallback2.callGetPostCoursesHours(finalList);
             }
         });
 
@@ -223,7 +226,7 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
     }
 
     // this method getCourses should get courses selected data that will open next semseter
-    void getCourses(ArrayList<String> takenCoursesSelected, MyCallback myCallback) {
+    void getPostCourses(ArrayList<String> takenCoursesSelected, MyCallback2 myCallback) {
 
         // for each loop and wait every round to get each course post data
         for (int i = 0; i < takenCoursesSelected.size(); i++) {
@@ -233,9 +236,9 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
 
                 if (documentSnapshot.exists()) {
                     if (finalI == takenCoursesSelected.size() - 1)
-                        myCallback.onCallback((ArrayList<String>) documentSnapshot.get("postCourses"), true);
+                        myCallback.CallGetPostCourses((ArrayList<String>) documentSnapshot.get("postCourses"), true);
                     else
-                        myCallback.onCallback((ArrayList<String>) documentSnapshot.get("postCourses"), false);
+                        myCallback.CallGetPostCourses((ArrayList<String>) documentSnapshot.get("postCourses"), false);
                 }
             }).addOnFailureListener(e -> Toasty.error(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show());
 
@@ -286,23 +289,26 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
 
         summer_next.setOnClickListener(v -> next(((RelativeLayout) v.getParent().getParent())));
 
-        first_save.setOnClickListener(v -> save(((RelativeLayout) v.getParent().getParent())));
+        first_save.setOnClickListener(v -> saveInProgress(((RelativeLayout) v.getParent().getParent())));
 
-        second_save.setOnClickListener(v -> save(((RelativeLayout) v.getParent().getParent())));
+        second_save.setOnClickListener(v -> saveInProgress(((RelativeLayout) v.getParent().getParent())));
 
-        summer_save.setOnClickListener(v -> save(((RelativeLayout) v.getParent().getParent())));
+        summer_save.setOnClickListener(v -> saveInProgress(((RelativeLayout) v.getParent().getParent())));
     } //end of onActivityCreated
 
-    void save(RelativeLayout parent) {
 
+    // to update in database status to in progress
+    void saveInProgress(RelativeLayout parent) {
 
-        if(checkGPA(parent)){
-             Toasty.error(getActivity(), "You must choose courses limit to " +gpaLimit+ "credit Hours ", Toast.LENGTH_SHORT).show();
+        int Hours = Integer.parseInt(((TextView)((LinearLayout)parent.getChildAt(1)).getChildAt(1)).getText().toString());
+
+        if(Hours>checkGPA(parent)){
+             Toasty.error(getActivity(), "You must choose courses limit to " +allowableCreditHours+ "credit Hours ", Toast.LENGTH_SHORT).show();
         }
         else {
             WriteBatch batch = db.batch();
             for (int i = 0; i < ((LinearLayout) ((ScrollView) parent.getChildAt(0)).getChildAt(0)).getChildCount(); i++) {
-                View view = secondTermChipsLinerLayout.getChildAt(i);
+                View view = ((LinearLayout) ((ScrollView) parent.getChildAt(0)).getChildAt(0)).getChildAt(i);
 
                 if (((CheckBox) view).isChecked()) {
                     Toasty.info(getActivity(), ((CheckBox) view).getText().toString(), Toast.LENGTH_SHORT).show();
@@ -320,12 +326,45 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
     }
 
 
-    /* TODO: I should make courses as taken status + create alertDilog for math */
+    // to update in database status to takken
+    void saveTakken(RelativeLayout parent) {
+
+
+
+
+            WriteBatch batch = db.batch();
+            for (int i = 0; i < ((LinearLayout) ((ScrollView) parent.getChildAt(0)).getChildAt(0)).getChildCount(); i++) {
+                View view = ((LinearLayout) ((ScrollView) parent.getChildAt(0)).getChildAt(0)).getChildAt(i);
+
+                if (((CheckBox) view).isChecked()) {
+                    Toasty.info(getActivity(), ((CheckBox) view).getText().toString(), Toast.LENGTH_SHORT).show();
+
+                    DocumentReference sfRef = db.collection("courses").document(((CheckBox) view).getText().toString().replaceAll("\\(.*?\\)", "").toUpperCase());
+                    batch.update(sfRef, "status", "takken");
+                }
+
+
+            }
+
+            // Commit the batch
+            batch.commit().addOnCompleteListener(task -> Toasty.info(getActivity(), "Courses registered to pass", Toast.LENGTH_SHORT).show());
+    }
+
+
+    // to move next to following semester and update courses in data base to takken
     void next(RelativeLayout parent) {
 
-        if(checkGPA(parent)){
-            Toasty.error(getActivity(), "You must choose courses limit to " +gpaLimit+ "credit Hours ", Toast.LENGTH_SHORT).show();
+        // get selected course hours from textview
+        int Hours = Integer.parseInt(((TextView)((LinearLayout)parent.getChildAt(1)).getChildAt(1)).getText().toString());
 
+        // check if GPA value is Empty
+        if(((EditText)((LinearLayout)parent.getChildAt(1)).getChildAt(2)).getText().toString().isEmpty()){
+            Toasty.error(getActivity(), "Enter your GPA", Toast.LENGTH_SHORT).show();
+        }
+
+        // check GPA is not allowed show error
+       else if(Hours>checkGPA(parent)){
+            Toasty.error(getActivity(), "You must choose courses limit to " +allowableCreditHours+ "credit Hours ", Toast.LENGTH_SHORT).show();
         }
         else {
             ArrayList<String> coursesSelected = new ArrayList<String>();
@@ -345,35 +384,163 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
             }
             totalPostCoursesList.clear();
 
+            if (checkRules(coursesSelected)) { // if there is math or progtamming show daliog
 
-            if (checkRules(coursesSelected))
-                Toasty.info(getActivity(), "note you are chooses two courses math or programming together ", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Alert")
+                        .setMessage("Are you sure you want to chooses two courses math or programming together?")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+
+                            //Move TO NEXT
+                            // get all check box postCourses details from data base
+                            saveTakken(parent);
 
 
-            //Move TO NEXT
-            // get all check box postCourses details from data base
-            getCourses(coursesSelected, (singlePostCoursesList, isArrayCompleted) -> {
-                // add the result array of curses to array that will hold courses to show
-                totalPostCoursesList.addAll(singlePostCoursesList);
+                            getPostCourses(coursesSelected, (singlePostCoursesList, isArrayCompleted) -> {
 
-                if (isArrayCompleted) {
-                    // add the not selected courses array to array that will hold courses to show
-                    totalPostCoursesList.addAll(coursesNotSelected);
+// add the result array of curses to array that will hold courses to show
+                                totalPostCoursesList.addAll(singlePostCoursesList);
 
-                    // to get hours for courses to be used in next layout
-                    getCoursesDetails(totalPostCoursesList, detailedCourses ->
+                                if (isArrayCompleted) {
+                                    //for loop on totalPostCoursesList to get each course preRequest
+                                    //    getCoursePreReq(totalPostCoursesList);
+                                    // add the not selected courses array to array that will hold courses to show
+                                    totalPostCoursesList.addAll(coursesNotSelected);
 
-                            // Rank
-                            rank(detailedCourses, Integer.valueOf(((ScrollView) parent.getChildAt(0)).getChildAt(0).getTag().toString())));
-                }
-            });
+                                    // to get hours for each post course  to be used in next layout
+
+                                    getPostCoursesHours(totalPostCoursesList, finalList -> {
+
+
+                                        rank(finalList, Integer.valueOf(((ScrollView) parent.getChildAt(0)).getChildAt(0).getTag().toString()));
+
+
+                                    });
+
+
+
+                                }// end of if isArrayCompleted
+                            }); // end of getPostCourses
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        }) // end of setPositiveButton button
+
+
+
+
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            } // end of checkRules IF
+
+            else{ // else if there is no reuls for math or programming found
+
+                //Move TO NEXT
+                // get all check box postCourses details from data base
+                saveTakken(parent);
+
+
+                getPostCourses(coursesSelected, (singlePostCoursesList, isArrayCompleted) -> {
+
+// add the result array of curses to array that will hold courses to show
+                    totalPostCoursesList.addAll(singlePostCoursesList);
+
+                    if (isArrayCompleted) {
+                        //for loop on totalPostCoursesList to get each course preRequest
+                        //    getCoursePreReq(totalPostCoursesList);
+                        // add the not selected courses array to array that will hold courses to show
+                        totalPostCoursesList.addAll(coursesNotSelected);
+
+                        // to get hours for each post course  to be used in next layout
+
+                        getPostCoursesHours(totalPostCoursesList, finalList -> rank(finalList, Integer.valueOf(((ScrollView) parent.getChildAt(0)).getChildAt(0).getTag().toString())));
+
+
+                    }});
+
+
+                    }// end of else
         }
     }
 
-    boolean checkGPA(RelativeLayout parent){
+    private void getCoursePreReq(ArrayList<String> totalPostCoursesList, MyCallback3 myCallback) {
 
-        return true;
+        // for each loop and wait every round to get each course post data
+        for (int i = 0; i < totalPostCoursesList.size(); i++) {
+
+            int finalI = i;
+            db.collection("courses").document(totalPostCoursesList.get(i)).get().addOnSuccessListener(documentSnapshot -> {
+
+                if (documentSnapshot.exists()) {
+                    if (finalI == totalPostCoursesList.size() - 1)
+                        myCallback.callGetCoursePreReq((ArrayList<String>) documentSnapshot.get("preReq"), true);
+                    else
+                        myCallback.callGetCoursePreReq((ArrayList<String>) documentSnapshot.get("preReq"), false);
+                }
+            }).addOnFailureListener(e -> Toasty.error(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show());
+
+        }
+        
     }
+
+    int checkGPA(RelativeLayout parent){
+
+// to get GPA editText value and convert it to float
+      if (Float.parseFloat(((EditText)((LinearLayout)parent.getChildAt(1)).getChildAt(2)).getText().toString())<= 2){
+           allowableCreditHours=16;
+       }
+       else{
+           allowableCreditHours=21;
+       }
+
+
+
+        return allowableCreditHours;
+    }
+
+
+
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

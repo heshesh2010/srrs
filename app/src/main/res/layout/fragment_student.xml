@@ -87,6 +87,7 @@
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/first_gpa"
                         android:hint="GPA"
+                        android:tag="1"
                         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                         android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
@@ -177,6 +178,7 @@
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/second_gpa"
                         android:hint="GPA"
+                        android:tag="1"
                         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                         android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
@@ -254,6 +256,7 @@
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/summer_gpa"
                         android:hint="GPA"
+                        android:tag="1"
                         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                         android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
