@@ -62,7 +62,7 @@ public class StudentMainActivity extends AppCompatActivity implements  pastCours
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-        new DrawerUtil(this,mToolbar,mFirebaseAuth);
+//        new DrawerUtil(this,mToolbar,mFirebaseAuth);
 
 
 

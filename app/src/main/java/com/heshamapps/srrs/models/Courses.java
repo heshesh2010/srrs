@@ -15,18 +15,25 @@ public class Courses  implements Serializable ,Comparable {
 
     private String status;
     private int courseHours  ,level , coursesCount;
-    private ArrayList<String> postCourses;
+    private ArrayList<String>  postCourses;
+
+    public ArrayList<String> getPreReq() {
+        return preReq;
+    }
+
+    private ArrayList<String>  preReq;
 
     public Courses( ) {
     }
 
-    public Courses(String courseCode, String courseName, String courseType, int courseHours,ArrayList<String> postCourses,int coursesCount) {
+    public Courses(String courseCode, String courseName, String courseType, int courseHours, ArrayList<String> postCourses, int coursesCount, ArrayList<String> preReq) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.courseType = courseType;
         this.courseHours = courseHours;
         this.postCourses=postCourses;
         this.coursesCount =coursesCount;
+        this.preReq = preReq;
     }
 
     public Courses(String courseCode) {
@@ -59,6 +66,7 @@ public class Courses  implements Serializable ,Comparable {
     public int getCoursesCount() {
         return this.coursesCount;
     }
+
 
     @Override
     public int compareTo(Object o) {

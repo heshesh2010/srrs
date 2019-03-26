@@ -1,8 +1,10 @@
 package com.heshamapps.srrs.util;
 
-import java.util.ArrayList;
+import com.heshamapps.srrs.models.Courses;
+
+import java.util.Map;
 
 public interface MyCallback3 {
 
-    void callGetCoursePreReq(ArrayList<String> preReq, boolean b);
+    void callGetCoursePreReq(Map<Courses, String> preReq, boolean b);
 }

@@ -1,8 +1,8 @@
 package com.heshamapps.srrs.student;
 
 import android.app.Fragment;
-import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +17,18 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 import com.heshamapps.srrs.R;
 import com.heshamapps.srrs.models.Courses;
@@ -31,10 +36,14 @@ import com.heshamapps.srrs.models.compareCourses;
 import com.heshamapps.srrs.util.MyCallback;
 import com.heshamapps.srrs.util.MyCallback2;
 import com.heshamapps.srrs.util.MyCallback3;
+import com.heshamapps.srrs.util.MyCallback4;
+import com.heshamapps.srrs.util.MyCallback5;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -102,7 +111,16 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
     Button button3;
 
 
-    ArrayList<String> totalPostCoursesList = new ArrayList<String>();
+    ArrayList<String> coursePassedArray = new ArrayList<String>();
+    ArrayList<String> holdCoursesArray = new ArrayList<String>();
+    ArrayList<String> statusArray = new ArrayList<String>();
+    ArrayList<String> coursesSelected = new ArrayList<String>();
+    ArrayList<String> coursesNotSelected = new ArrayList<String>();
+    ArrayList<String> singlePostCoursesListArray = new ArrayList<String>();
+    Map<Courses, String> hesho = new HashMap<>();
+    Map<Courses, String> meho = new HashMap<Courses, String>();
+    ArrayList<Courses>AllCourses= new ArrayList<Courses>();
+
 
     int allowableCreditHours;
 
@@ -114,7 +132,6 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
 
@@ -134,7 +151,7 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
 
 
         return view;
-    } // end  onCreate();
+    } // end  onCreate
 
 
     // for math condition and M251 , if any of these found it return found array .
@@ -163,7 +180,7 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
         Collections.sort(detailedCourses, new compareCourses());
 
         ArrayList<Courses> matchedArray = findOccurrencesInArray(detailedCourses);
-// this will make these courses found the rule to top of list 
+// this will make these courses found the rule to top of list
         for (int i = 0; i < matchedArray.size(); i++) {
 
             detailedCourses.remove(matchedArray.get(i));
@@ -232,13 +249,23 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
         for (int i = 0; i < takenCoursesSelected.size(); i++) {
 
             int finalI = i;
-            db.collection("courses").document(takenCoursesSelected.get(i)).get().addOnSuccessListener(documentSnapshot -> {
+            db.collection("courses").document(takenCoursesSelected.get(i)).get().addOnCompleteListener(task -> {
 
-                if (documentSnapshot.exists()) {
+                if (task.isComplete()) {
+                    DocumentSnapshot documentSnapshot= task.getResult();
+                    ArrayList<String> h= (ArrayList<String>) documentSnapshot.get("postCourses");
+                    while(h != null && h.contains("")) {
+                        h.remove("");
+                    }
                     if (finalI == takenCoursesSelected.size() - 1)
                         myCallback.CallGetPostCourses((ArrayList<String>) documentSnapshot.get("postCourses"), true);
                     else
-                        myCallback.CallGetPostCourses((ArrayList<String>) documentSnapshot.get("postCourses"), false);
+                        myCallback.CallGetPostCourses(h, false);
+
+
+                }
+                else{
+                    Toasty.error(getActivity(), "error", Toast.LENGTH_LONG).show();
                 }
             }).addOnFailureListener(e -> Toasty.error(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show());
 
@@ -303,7 +330,7 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
         int Hours = Integer.parseInt(((TextView)((LinearLayout)parent.getChildAt(1)).getChildAt(1)).getText().toString());
 
         if(Hours>checkGPA(parent)){
-             Toasty.error(getActivity(), "You must choose courses limit to " +allowableCreditHours+ "credit Hours ", Toast.LENGTH_SHORT).show();
+            Toasty.error(getActivity(), "You must choose courses limit to " +allowableCreditHours+ "credit Hours ", Toast.LENGTH_SHORT).show();
         }
         else {
             WriteBatch batch = db.batch();
@@ -332,27 +359,33 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
 
 
 
-            WriteBatch batch = db.batch();
-            for (int i = 0; i < ((LinearLayout) ((ScrollView) parent.getChildAt(0)).getChildAt(0)).getChildCount(); i++) {
-                View view = ((LinearLayout) ((ScrollView) parent.getChildAt(0)).getChildAt(0)).getChildAt(i);
+        WriteBatch batch = db.batch();
+        for (int i = 0; i < ((LinearLayout) ((ScrollView) parent.getChildAt(0)).getChildAt(0)).getChildCount(); i++) {
+            View view = ((LinearLayout) ((ScrollView) parent.getChildAt(0)).getChildAt(0)).getChildAt(i);
 
-                if (((CheckBox) view).isChecked()) {
-                    Toasty.info(getActivity(), ((CheckBox) view).getText().toString(), Toast.LENGTH_SHORT).show();
+            if (((CheckBox) view).isChecked()) {
+                Toasty.info(getActivity(), ((CheckBox) view).getText().toString(), Toast.LENGTH_SHORT).show();
 
-                    DocumentReference sfRef = db.collection("courses").document(((CheckBox) view).getText().toString().replaceAll("\\(.*?\\)", "").toUpperCase());
-                    batch.update(sfRef, "status", "takken");
-                }
-
-
+                DocumentReference sfRef = db.collection("courses").document(((CheckBox) view).getText().toString().replaceAll("\\(.*?\\)", "").toUpperCase());
+                batch.update(sfRef, "status", "passed");
             }
 
-            // Commit the batch
-            batch.commit().addOnCompleteListener(task -> Toasty.info(getActivity(), "Courses registered to pass", Toast.LENGTH_SHORT).show());
+
+        }
+
+        // Commit the batch
+        batch.commit().addOnCompleteListener(task -> Toasty.info(getActivity(), "Courses registered to pass", Toast.LENGTH_SHORT).show());
     }
 
 
     // to move next to following semester and update courses in data base to takken
     void next(RelativeLayout parent) {
+        coursePassedArray.clear();
+        holdCoursesArray.clear();
+        statusArray.clear();
+        coursesSelected.clear();
+        coursesNotSelected.clear();
+        singlePostCoursesListArray.clear();
 
         // get selected course hours from textview
         int Hours = Integer.parseInt(((TextView)((LinearLayout)parent.getChildAt(1)).getChildAt(1)).getText().toString());
@@ -363,26 +396,24 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
         }
 
         // check GPA is not allowed show error
-       else if(Hours>checkGPA(parent)){
+        else if(Hours>checkGPA(parent)){
             Toasty.error(getActivity(), "You must choose courses limit to " +allowableCreditHours+ "credit Hours ", Toast.LENGTH_SHORT).show();
         }
         else {
-            ArrayList<String> coursesSelected = new ArrayList<String>();
-            ArrayList<String> coursesNotSelected = new ArrayList<String>();
+
 
 
             for (int i = 0; i < ((LinearLayout) ((ScrollView) parent.getChildAt(0)).getChildAt(0)).getChildCount(); i++) {
                 View view = ((LinearLayout) ((ScrollView) parent.getChildAt(0)).getChildAt(0)).getChildAt(i);
 
                 if (((CheckBox) view).isChecked()) {
-                    Toasty.info(getActivity(), ((CheckBox) view).getText().toString(), Toast.LENGTH_SHORT).show();
+
                     coursesSelected.add(((CheckBox) view).getText().toString().replaceAll("\\(.*?\\)", "").toUpperCase());
                 } else {
                     coursesNotSelected.add(((CheckBox) view).getText().toString().replaceAll("\\(.*?\\)", "").toUpperCase());
                 }
 
             }
-            totalPostCoursesList.clear();
 
             if (checkRules(coursesSelected)) { // if there is math or progtamming show daliog
 
@@ -394,48 +425,7 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
                         // The dialog is automatically dismissed when a dialog button is clicked.
                         .setPositiveButton(android.R.string.yes, (dialog, which) -> {
 
-                            //Move TO NEXT
-                            // get all check box postCourses details from data base
-                            saveTakken(parent);
-
-
-                            getPostCourses(coursesSelected, (singlePostCoursesList, isArrayCompleted) -> {
-
-// add the result array of curses to array that will hold courses to show
-                                totalPostCoursesList.addAll(singlePostCoursesList);
-
-                                if (isArrayCompleted) {
-                                    //for loop on totalPostCoursesList to get each course preRequest
-                                    //    getCoursePreReq(totalPostCoursesList);
-                                    // add the not selected courses array to array that will hold courses to show
-                                    totalPostCoursesList.addAll(coursesNotSelected);
-
-                                    // to get hours for each post course  to be used in next layout
-
-                                    getPostCoursesHours(totalPostCoursesList, finalList -> {
-
-
-                                        rank(finalList, Integer.valueOf(((ScrollView) parent.getChildAt(0)).getChildAt(0).getTag().toString()));
-
-
-                                    });
-
-
-
-                                }// end of if isArrayCompleted
-                            }); // end of getPostCourses
-
-
-
-
-
-
-
-
-
-
-
-
+                            moveToNext(parent, coursesSelected , coursesNotSelected );
 
 
 
@@ -452,87 +442,223 @@ public class studentFragment extends Fragment implements OnCheckedChangeListener
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             } // end of checkRules IF
 
             else{ // else if there is no reuls for math or programming found
 
-                //Move TO NEXT
-                // get all check box postCourses details from data base
-                saveTakken(parent);
+                moveToNext(parent, coursesSelected, coursesNotSelected);
 
 
-                getPostCourses(coursesSelected, (singlePostCoursesList, isArrayCompleted) -> {
-
-// add the result array of curses to array that will hold courses to show
-                    totalPostCoursesList.addAll(singlePostCoursesList);
-
-                    if (isArrayCompleted) {
-                        //for loop on totalPostCoursesList to get each course preRequest
-                        //    getCoursePreReq(totalPostCoursesList);
-                        // add the not selected courses array to array that will hold courses to show
-                        totalPostCoursesList.addAll(coursesNotSelected);
-
-                        // to get hours for each post course  to be used in next layout
-
-                        getPostCoursesHours(totalPostCoursesList, finalList -> rank(finalList, Integer.valueOf(((ScrollView) parent.getChildAt(0)).getChildAt(0).getTag().toString())));
-
-
-                    }});
-
-
-                    }// end of else
+            }// end of else
         }
     }
 
+
+   void getAllCourses(MyCallback5 myCallBack){
+        db.collection("courses").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isComplete()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Courses course = document.toObject(Courses.class);
+                        AllCourses.add(course);
+                    }
+
+                    myCallBack.callGetAllCourses(AllCourses);
+                }
+            }
+        });
+
+
+    }
+
+
+    //Move TO NEXT
+    void moveToNext(RelativeLayout parent, ArrayList<String> coursesSelected, ArrayList<String> coursesNotSelected){
+
+        // Get all checked courses and save it in database to 'pass' status
+        saveTakken(parent);
+
+
+
+        getAllCourses(courses -> Log.d("AllCourses",String.valueOf(courses.size())));
+
+
+
+
+
+
+
+
+
+
+
+        // Get Post courses from database based on selected courses
+        getPostCourses(coursesSelected, (singlePostCoursesList, isArrayPostCoursesCompleted) -> {
+
+            singlePostCoursesListArray.addAll(singlePostCoursesList);
+
+            // wait until get all post courses
+            if (isArrayPostCoursesCompleted) {
+
+                /** contain 5 courses */
+                Log.d("PostCoursesListArray",String.valueOf(singlePostCoursesListArray.size()));
+
+                // add the not selected courses array to array that will hold courses to show
+                singlePostCoursesListArray.addAll(coursesNotSelected);
+
+                // Get  preRequest courses .. tak 5 courses and return each reound of pre post courses as list
+                getCoursePreReq(singlePostCoursesListArray, (preReqList, isArrayPreCoursesCompleted1) -> {
+
+                    Log.d("preReqList",String.valueOf(preReqList.size()));
+                    hesho.putAll(preReqList);
+                    if(isArrayPreCoursesCompleted1)
+                    {
+
+
+
+                    // Get status of preRequest course
+                    // take each segment list and return ststus as signal then save it to array
+                        Log.d("hesho",hesho.entrySet().toString());
+
+                        for (Map.Entry<Courses, String> entry : hesho.entrySet()) {
+
+
+                    getCoursePreReqStatus(entry.getKey().getPreReq(), (status, s, isQueryComplete) -> {
+
+
+                        /**** should first get status and add to array then ater complete check if all element is passed if true then add otheriese hold ****/
+                        statusArray.add(status);
+
+                        // wait until get status of preRequest course
+                        if(isQueryComplete) {
+                            boolean result = true;
+                            for (String preReqStatus : statusArray) {
+                                if (!preReqStatus.contains("passed")) {
+                                    result = false;
+                                    break;
+                                }
+                            }
+                            statusArray.clear();
+                            if(result){
+                                coursePassedArray.add(entry.getValue());
+                                Log.d("pass",entry.getValue());
+                            }
+                            else{
+                                holdCoursesArray.add(entry.getValue());
+                                Log.d("hold",entry.getValue());
+
+                            }
+                        }
+                    });
+
+
+                    // if map last index
+                    }
+                    }
+
+                    Log.d("pass",String.valueOf(coursePassedArray.size()));
+
+                        getPostCoursesHours(coursePassedArray, (finalList) ->
+                                {
+
+                                    rank(finalList, Integer.valueOf(((ScrollView) parent.getChildAt(0)).getChildAt(0).getTag().toString()));
+                                });
+
+
+                });
+
+
+
+
+
+            }
+        });
+
+    }
+
+
+
+    //
     private void getCoursePreReq(ArrayList<String> totalPostCoursesList, MyCallback3 myCallback) {
 
-        // for each loop and wait every round to get each course post data
+        // for each loop and wait every round to get each course pre data
         for (int i = 0; i < totalPostCoursesList.size(); i++) {
 
             int finalI = i;
-            db.collection("courses").document(totalPostCoursesList.get(i)).get().addOnSuccessListener(documentSnapshot -> {
+            db.collection("courses").document(totalPostCoursesList.get(i)).get().addOnCompleteListener(task -> {
 
-                if (documentSnapshot.exists()) {
+                if (task.isComplete()) {
+                    DocumentSnapshot documentSnapshot = task.getResult();
+
+                    Courses course = documentSnapshot.toObject(Courses.class);
+
+                    meho.put((course),totalPostCoursesList.get(finalI));
+
                     if (finalI == totalPostCoursesList.size() - 1)
-                        myCallback.callGetCoursePreReq((ArrayList<String>) documentSnapshot.get("preReq"), true);
+                        myCallback.callGetCoursePreReq(meho, true);
                     else
-                        myCallback.callGetCoursePreReq((ArrayList<String>) documentSnapshot.get("preReq"), false);
+                        myCallback.callGetCoursePreReq(meho, false);
+
+
+                }
+                else{
+                    Toasty.error(getActivity(), "error", Toast.LENGTH_LONG).show();
                 }
             }).addOnFailureListener(e -> Toasty.error(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show());
 
         }
-        
+
+    }
+
+
+
+    private void getCoursePreReqStatus(ArrayList<String> totalPostCoursesList, MyCallback4 myCallback) {
+
+
+        // for each loop and wait every round to get each course post data
+        for (int i = 0; i < totalPostCoursesList.size(); i++) {
+            int finalI = i;
+
+            if (totalPostCoursesList.get(i).isEmpty()) {
+
+                if (finalI == totalPostCoursesList.size() - 1)
+                    myCallback.callGetCoursePreReqStatus("", totalPostCoursesList.get(i), true);
+                else
+                    myCallback.callGetCoursePreReqStatus("", totalPostCoursesList.get(i), false);
+
+
+            } else {
+                db.collection("courses").document(totalPostCoursesList.get(i)).get()
+                        .addOnCompleteListener(task -> {
+
+                            if (task.isComplete()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document != null) {
+                                    if (finalI == totalPostCoursesList.size() - 1)
+                                        myCallback.callGetCoursePreReqStatus((String) document.get("status"), totalPostCoursesList.get(finalI), true);
+                                    else
+                                        myCallback.callGetCoursePreReqStatus((String) document.get("status"), totalPostCoursesList.get(finalI), false);
+                                }
+                            }
+                            else{
+                                Toasty.error(getActivity(), "error", Toast.LENGTH_LONG).show();
+                            }
+                        }).addOnFailureListener(e -> Toasty.error(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show());
+            }
+        }
+
     }
 
     int checkGPA(RelativeLayout parent){
 
 // to get GPA editText value and convert it to float
-      if (Float.parseFloat(((EditText)((LinearLayout)parent.getChildAt(1)).getChildAt(2)).getText().toString())<= 2){
-           allowableCreditHours=16;
-       }
-       else{
-           allowableCreditHours=21;
-       }
+        if (Float.parseFloat(((EditText)((LinearLayout)parent.getChildAt(1)).getChildAt(2)).getText().toString())<= 2){
+            allowableCreditHours=16;
+        }
+        else{
+            allowableCreditHours=21;
+        }
 
 
 

@@ -1,38 +1,21 @@
 package com.heshamapps.srrs.admin;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.heshamapps.srrs.LoginActivity;
 import com.heshamapps.srrs.R;
 import com.heshamapps.srrs.models.Courses;
-import com.heshamapps.srrs.util.DrawerUtil;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.ArrayList;
 
@@ -81,7 +64,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         db = FirebaseFirestore.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
-        new  DrawerUtil(this,mToolbar,mFirebaseAuth);
+//        new  DrawerUtil(this,mToolbar,mFirebaseAuth);
 
     }
 
@@ -118,7 +101,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
 
         public void save(View view){
 
-            ArrayList<String> postCourses = new ArrayList<String>();
+            ArrayList<String> postCourses = new ArrayList<>();
 
 
             for(int i = 0; i <linearLayout.getChildCount(); i++){
@@ -140,7 +123,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
         }
         else {
             db.collection("courses").document(courseCode.getText().toString().toUpperCase())
-                    .set(new Courses(courseCode.getText().toString(), courseName.getText().toString(), semester.getSelectedItem().toString(), Integer.valueOf(courseHours.getText().toString()),postCourses,postCourses.size()))
+                    .set(new Courses(courseCode.getText().toString(), courseName.getText().toString(), semester.getSelectedItem().toString(), Integer.valueOf(courseHours.getText().toString()),postCourses,postCourses.size(),postCourses))
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

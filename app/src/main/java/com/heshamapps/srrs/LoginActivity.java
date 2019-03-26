@@ -1,8 +1,6 @@
 package com.heshamapps.srrs;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,27 +8,25 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
-import com.heshamapps.srrs.admin.AdminMainActivity;
-import com.heshamapps.srrs.models.Users;
-import com.heshamapps.srrs.student.StudentMainActivity;
-import com.heshamapps.srrs.util.CONFIG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.heshamapps.srrs.admin.AdminMainActivity;
+import com.heshamapps.srrs.databinding.ActivityLoginBinding;
+import com.heshamapps.srrs.student.StudentMainActivity;
+import com.heshamapps.srrs.viewModel.LoginViewModel;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 
-public class LoginActivity extends Activity {
+
+public class LoginActivity extends AppCompatActivity  {
 
 
 
@@ -46,27 +42,48 @@ public class LoginActivity extends Activity {
 
     String mUserName , mPassword ;
 
-
-    private FirebaseAuth auth;
-    FirebaseFirestore db;
+    private LoginViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
 
-        //Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setTimestampsInSnapshotsEnabled(true)
-                .build();
-        db.setFirestoreSettings(settings);
 
-      //  lunchAdminScreen();
         lunchStudentScreen();
+        ActivityLoginBinding activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
+        activityLoginBinding.setViewModel(new LoginViewModel(getApplication()));
+        activityLoginBinding.executePendingBindings();
+
+
+        viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+
+        viewModel.getAction().observe(this, action -> {
+            if(action != null){
+                handleAction(action);
+            }
+        });
+
+
+
+    }
+
+
+    private void handleAction(@NonNull final LoginViewModel.Action action) {
+        switch (action.getValue()){
+            case LoginViewModel.Action.SHOW_ADMIN:
+                lunchAdminScreen();
+                break;
+            case LoginViewModel.Action.SHOW_STUDENT:
+                lunchStudentScreen();
+                break;
+        }
+    }
+
+    @BindingAdapter({"toastMessage"})
+    public static void runMe(View view, String message) {
+        if (message != null)
+            Toast.makeText(view.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     //Login BTN
@@ -87,51 +104,7 @@ public class LoginActivity extends Activity {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        //authenticate user
-        auth.signInWithEmailAndPassword(mUserName, mPassword)
-                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            // there was an error
-                            if (mPassword.length() < 6) {
-                                passwordET.setError(getString(R.string.minimum_password));
-                            } else {
-                              //  Toasty.error(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
-                                Toasty.error(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
 
-                            }
-                        } else {
-
-                            DocumentReference docRef = db.collection("users").document(auth.getCurrentUser().getUid());
-                            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    Users user = documentSnapshot.toObject(Users.class);
-                                    progressBar.setVisibility(View.GONE);
-                                    int type = user.getRoleId();
-                                    switch (type) {
-                                        case CONFIG.ADMIN:
-                                            lunchAdminScreen();
-                                            break;
-                                        case CONFIG.STUDENT:
-                                            lunchStudentScreen();
-                                            break;
-                                        default:
-                                            Toasty.error(getApplicationContext(),"Sorry, Unknown user type please contact app developer" , Toast.LENGTH_LONG).show();
-                                            break;
-                                    }
-                                    getSharedPreferences("myPref", MODE_PRIVATE).edit().putInt("userType",type).apply();
-
-
-                                }
-                            });
-                        }
-                    }
-                });
 
     }
 
