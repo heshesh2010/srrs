@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".SignupActivity">
+    tools:context=".login.SignupActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -23,7 +23,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center"
-        android:background="@color/colorPrimaryDark"
         android:orientation="vertical">
 
 
@@ -43,8 +42,8 @@
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/black"
+                android:singleLine="true" />
 
 
             <EditText
@@ -57,7 +56,8 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/black"
+                />
 
 
         <RadioGroup
@@ -104,7 +104,8 @@
             android:text="@string/btn_forgot_password"
             android:textAllCaps="false"
             android:onClick="reset"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@android:color/black"
+            />
 
         <!-- Link to Login Screen -->
 
@@ -114,6 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="@null"
+            android:textColor="@android:color/black"
             android:text="@string/btn_link_to_login"
             android:textAllCaps="false"
             android:onClick="signIn"

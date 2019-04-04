@@ -1,0 +1,7 @@
+
+vsquid:UselessImportCheck"KRemove this unused import 'com.google.android.gms.tasks.OnSuccessListener'.(íå¡8ô¾—¸-
+jsquid:MaximumInheritanceDepth!"<This class has 6 parents which is greater than 5 authorized.(¢¬ãúùÿÿÿÿ
+Rsquid:UselessParenthesesCheck‡"!Remove these useless parentheses.(ÍÄ¹8ğ—â¸-
+csquid:UselessImportCheck"8Remove this unused import 'androidx.annotation.NonNull'.(ˆÛúÜ8ô¾—¸-
+Rsquid:UselessParenthesesCheck"!Remove these useless parentheses.(ÆóÜß8ğ—â¸-
+{squid:UselessImportCheck"KRemove this unused import 'com.google.android.gms.tasks.OnFailureListener'.(ï¿ŞŞúÿÿÿÿ8ô¾—¸-

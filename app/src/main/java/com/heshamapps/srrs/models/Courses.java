@@ -36,9 +36,14 @@ public class Courses  implements Serializable ,Comparable {
         this.preReq = preReq;
     }
 
+    public void setCourseHours(int courseHours) {
+        this.courseHours = courseHours;
+    }
+
     public Courses(String courseCode) {
         this.courseCode = courseCode;
     }
+
     public int getLevel() {
         return level;
     }

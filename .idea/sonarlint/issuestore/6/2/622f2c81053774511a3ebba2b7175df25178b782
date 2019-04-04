@@ -1,0 +1,7 @@
+
+hsquid:S3776V"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(—¿ë
+Esquid:S1604†"(Make this anonymous inner class a lambda(Ïë£ùÿÿÿÿ
+Esquid:S1604”"(Make this anonymous inner class a lambda(Ÿ ¹ÿÿÿÿÿ
+?squid:S1604n"(Make this anonymous inner class a lambda(¨Åª½
+™squid:S1186–"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ÿ£—
+jsquid:MaximumInheritanceDepth "<This class has 6 parents which is greater than 5 authorized.(Ÿ«·êüÿÿÿÿ

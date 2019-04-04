@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 
 
-public class StudentMainActivity extends AppCompatActivity implements  pastCoursesFragment.OnFragmentInteractionListener , aboutFragment.OnFragmentInteractionListener{
+public class StudentMainActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
     FirebaseAuth mFirebaseAuth;
@@ -54,7 +54,7 @@ public class StudentMainActivity extends AppCompatActivity implements  pastCours
 
 
         getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_frame,  new arEnFragment()).commit();
+                .replace(R.id.fragment_frame,  new arEnFragment(),"first").commit();
 
 
         mActivity = this;
@@ -62,22 +62,15 @@ public class StudentMainActivity extends AppCompatActivity implements  pastCours
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-//        new DrawerUtil(this,mToolbar,mFirebaseAuth);
+                new DrawerUtil(this,mToolbar,mFirebaseAuth);
 
 
 
-      //   AR.getSelectedItem().toString();
-     //   EL.getSelectedItem().toString();
 
 
 
 
     }
 
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 }
 

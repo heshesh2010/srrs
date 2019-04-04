@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.heshamapps.srrs.R;
 import com.heshamapps.srrs.models.Courses;
+import com.heshamapps.srrs.util.DrawerUtil;
 
 import java.util.ArrayList;
 
@@ -46,8 +47,11 @@ public class AddNewCourseActivity extends AppCompatActivity {
     @BindView(R.id.semesterSpinner)
     Spinner semester ;
 
-    @BindView(R.id.linearLayout)
-    LinearLayout linearLayout ;
+    @BindView(R.id.preLL)
+    LinearLayout preLL ;
+
+    @BindView(R.id.postLL)
+    LinearLayout postLL ;
 
     FirebaseFirestore db;
     FirebaseAuth mFirebaseAuth;
@@ -55,7 +59,8 @@ public class AddNewCourseActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-
+    ArrayList<String> preCourses = new ArrayList<>();
+    ArrayList<String> postCourses = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +69,11 @@ public class AddNewCourseActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         db = FirebaseFirestore.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
-//        new  DrawerUtil(this,mToolbar,mFirebaseAuth);
+       new DrawerUtil(this,mToolbar,mFirebaseAuth);
 
     }
 
-    public void addViews(View view){
+    public void preAddViews(View view){
         LinearLayout parent = new LinearLayout(this);
         parent.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
         parent.setOrientation(LinearLayout.HORIZONTAL);
@@ -86,10 +91,31 @@ public class AddNewCourseActivity extends AppCompatActivity {
         parent.addView(et);
         parent.addView(img);
 
-        linearLayout.addView(parent);
+        preLL.addView(parent);
 
     }
 
+    public void postAddViews(View view){
+        LinearLayout parent = new LinearLayout(this);
+        parent.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
+        parent.setOrientation(LinearLayout.HORIZONTAL);
+        parent.setWeightSum(4);
+        EditText et=new EditText(this);
+        et.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, WRAP_CONTENT,3.8f));
+
+        ImageView img = new ImageView(this);
+        img.setBackgroundResource(R.drawable.ic_remove_circle_blue_400_24dp);
+        img.setOnClickListener(this::removeViews);
+        img.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT,    0.2f));
+
+
+
+        parent.addView(et);
+        parent.addView(img);
+
+        postLL.addView(parent);
+
+    }
 
     public void removeViews(View view){
 
@@ -101,15 +127,25 @@ public class AddNewCourseActivity extends AppCompatActivity {
 
         public void save(View view){
 
-            ArrayList<String> postCourses = new ArrayList<>();
 
 
-            for(int i = 0; i <linearLayout.getChildCount(); i++){
-                if(linearLayout.getChildAt(i) instanceof LinearLayout) {
-                    EditText view2 = (((EditText)((LinearLayout)linearLayout.getChildAt(i)).getChildAt(0)));
-                    postCourses.add(view2.getText().toString().toUpperCase());
-              //      Log.i("val " , " val " + ((EditText) linearLayout.getChildAt(i)).getText() + "  view  "+ view2.getText() );
+
+            for(int i = 0; i <preLL.getChildCount(); i++){
+                if(preLL.getChildAt(i) instanceof LinearLayout) {
+                    EditText view2 = (((EditText)((LinearLayout)preLL.getChildAt(i)).getChildAt(0)));
+                    preCourses.add(view2.getText().toString().toUpperCase());
                 }}
+
+
+            for(int i = 0; i <postLL.getChildCount(); i++){
+                if(postLL.getChildAt(i) instanceof LinearLayout) {
+                    EditText view2 = (((EditText)((LinearLayout)postLL.getChildAt(i)).getChildAt(0)));
+                    postCourses.add(view2.getText().toString().toUpperCase());
+                }}
+
+
+
+
 
         if(TextUtils.isEmpty(courseCode.getText())){
             Toasty.error(getApplicationContext(),"You should enter course code ",  Toast.LENGTH_SHORT).show();
@@ -123,17 +159,9 @@ public class AddNewCourseActivity extends AppCompatActivity {
         }
         else {
             db.collection("courses").document(courseCode.getText().toString().toUpperCase())
-                    .set(new Courses(courseCode.getText().toString(), courseName.getText().toString(), semester.getSelectedItem().toString(), Integer.valueOf(courseHours.getText().toString()),postCourses,postCourses.size(),postCourses))
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toasty.success(getApplicationContext(),"Course Saved!" , Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                        }
+                    .set(new Courses(courseCode.getText().toString(), courseName.getText().toString(), semester.getSelectedItem().toString(), Integer.valueOf(courseHours.getText().toString()),postCourses,postCourses.size(),preCourses))
+                    .addOnSuccessListener(aVoid -> Toasty.success(getApplicationContext(),"Course Saved!" , Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(e -> {
                     });
 
         }

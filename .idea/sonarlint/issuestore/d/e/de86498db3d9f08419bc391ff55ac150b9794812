@@ -1,0 +1,12 @@
+
+zsquid:S001165"VRename this field "NotSelected" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áæÃ¹ûÿÿÿÿ8¼ò³§-
+Fsquid:S1604I"(Make this anonymous inner class a lambda(†šå¼8øê¬§-
+|squid:S22934"YReplace the type specification in this constructor call with the diamond operator ("<>").(æ«©›ùÿÿÿÿ8êµó¥-
+?squid:S1185>"(Remove this method to simply inherit it.(ßìê¯
+tsquid:S00116,"URename this field "first_next" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ¯ã’8äî¥-
+esquid:UselessImportCheck":Remove this unused import 'android.widget.CompoundButton'.(®½¤Ş8®Îó¥-
+]squid:UselessImportCheck	"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ8÷•´§-
+|squid:S22935"YReplace the type specification in this constructor call with the diamond operator ("<>").(áæÃ¹ûÿÿÿÿ8¼ò³§-
+asquid:UselessImportCheck"1Remove this unused import 'java.io.Serializable'.(èãîÂÿÿÿÿÿ8Û«¶-
+nsquid:CommentedOutCodeLineO"<This block of commented-out lines of code should be removed.(£ÎÏºûÿÿÿÿ8¯úó¥-
+fsquid:UselessImportCheck";Remove this unused import 'com.heshamapps.srrs.logic.Next'.(ãÅÈ¼8Û«¶-

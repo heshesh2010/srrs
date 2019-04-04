@@ -9,9 +9,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.heshamapps.srrs.LoginActivity;
+import com.heshamapps.srrs.login.LoginActivity;
 import com.heshamapps.srrs.R;
 import com.heshamapps.srrs.aboutFragment;
+import com.heshamapps.srrs.student.AnyYearFragment;
+import com.heshamapps.srrs.student.arEnFragment;
 import com.heshamapps.srrs.student.pastCoursesFragment;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -39,7 +41,9 @@ public class DrawerUtil {
     private static PrimaryDrawerItem mItemUnverifiedProfile;
     private static PrimaryDrawerItem mItemSettings;
     private static PrimaryDrawerItem mItemPastCourses;
+    private static PrimaryDrawerItem mItemAnyYear;
     private static PrimaryDrawerItem mItemAbout;
+    private static PrimaryDrawerItem mItemStart;
     private static PrimaryDrawerItem mCurrentProfile;
     private static FirebaseUser mFirebaseUser;
     static FirebaseAuth mFirebaseAuth;
@@ -62,7 +66,7 @@ public class DrawerUtil {
                             .withActivity(activity)
                             .withAccountHeader(setupAccountHeader())
                             .withToolbar(mToolbar)
-                            .addDrawerItems(mItemLogin, new DividerDrawerItem(),mItemSettings)
+                            .addDrawerItems(mItemLogout, new DividerDrawerItem(),mItemSettings)
                             .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                                 @Override
                                 public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -77,7 +81,7 @@ public class DrawerUtil {
                             .withActivity(activity)
                             .withAccountHeader(setupAccountHeader())
                             .withToolbar(mToolbar)
-                            .addDrawerItems(mItemLogin, new DividerDrawerItem(),mItemSettings,mItemPastCourses)
+                            .addDrawerItems(mItemLogout, new DividerDrawerItem(),mItemSettings,mItemPastCourses,mItemAnyYear,mItemStart)
                             .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                                 @Override
                                 public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -99,7 +103,7 @@ public class DrawerUtil {
                     .withActivity(activity)
                     .withAccountHeader(setupAccountHeader())
                     .withToolbar(mToolbar)
-                    .addDrawerItems(mCurrentProfile, mItemLogin, new DividerDrawerItem(),mItemSettings)
+                    .addDrawerItems( mItemLogin, new DividerDrawerItem(),mItemSettings)
                     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                         @Override
                         public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -125,8 +129,8 @@ public class DrawerUtil {
         mItemPastCourses = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.pastCourses).withIcon(activity.getResources().getDrawable(R.mipmap.ic_settings_black_48dp));
         mItemSettings = new PrimaryDrawerItem().withIdentifier(6).withName(R.string.settings).withIcon(activity.getResources().getDrawable(R.mipmap.ic_settings_black_48dp));
         mItemAbout = new PrimaryDrawerItem().withIdentifier(7).withName(R.string.about).withIcon(activity.getResources().getDrawable(R.mipmap.ic_settings_black_48dp));
-
-
+        mItemAnyYear = new PrimaryDrawerItem().withIdentifier(8).withName(R.string.AnyYear).withIcon(activity.getResources().getDrawable(R.mipmap.ic_settings_black_48dp));
+        mItemStart =  new PrimaryDrawerItem().withIdentifier(9).withName(R.string.start).withIcon(activity.getResources().getDrawable(R.mipmap.ic_settings_black_48dp));
     }
 
 
@@ -214,6 +218,13 @@ public class DrawerUtil {
                 activity.getFragmentManager().beginTransaction().replace(R.id.fragment_frame,  new aboutFragment()).commit();
                 Toast.makeText(activity, "about menu selected", Toast.LENGTH_LONG).show();
             break;
+            // any year
+            case 8:
+                activity.getFragmentManager().beginTransaction().replace(R.id.fragment_frame,  new AnyYearFragment()).commit();
+                break;
+            case 9:
+                activity.getFragmentManager().beginTransaction().replace(R.id.fragment_frame,  new arEnFragment()).commit();
+                break;
         }
         mDrawerResult.closeDrawer();
     }
@@ -240,16 +251,17 @@ public class DrawerUtil {
         //Sign out
         mFirebaseAuth.signOut();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        if (isUserSignedIn()) {
+        if (!isUserSignedIn()) {
 
             mDrawerResult.updateItemAtPosition(mItemLogin, 1);
             mDrawerResult.removeItemByPosition(2);
 
             mDrawerResult.deselect(mItemLogin.getIdentifier());
             refreshMenuHeader();
+
             Intent intent = new Intent(activity, LoginActivity.class);
             activity.startActivity(intent);
-            activity.finish();
+
         } else {
             //check if internet connectivity is there
         }

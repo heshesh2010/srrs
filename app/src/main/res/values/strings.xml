@@ -21,12 +21,17 @@
         <item>2</item>
         <item>3</item>
         <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+
     </string-array>
 
     <string-array name="simester">
-        <item>first</item>
-        <item>second</item>
-        <item>summer</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 
     <string-array name="AR">
@@ -35,11 +40,11 @@
     </string-array>
 
     <string-array name="EL">
-        <item>El97</item>
-        <item>El98</item>
-        <item>El199</item>
-        <item>El111</item>
-        <item>El112</item>
+        <item>EL097</item>
+        <item>EL098</item>
+        <item>EL099</item>
+        <item>EL111</item>
+        <item>EL112</item>
     </string-array>
 
     <string name="action_sign_in_short">Register</string>
@@ -91,6 +96,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="first_year">First Year</string>
+    <string name="second_year">Second Year</string>
+    <string name="choose_courses">choose courses</string>
+    <string name="AnyYear">start from any year</string>
+    <string name="third_year">third year</string>
+    <string name="start">from begining</string>
 
 
 </resources>

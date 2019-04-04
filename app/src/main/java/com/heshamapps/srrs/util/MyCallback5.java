@@ -2,9 +2,9 @@ package com.heshamapps.srrs.util;
 
 import com.heshamapps.srrs.models.Courses;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface MyCallback5 {
 
-    void callGetAllCourses(ArrayList<Courses> courses );
+    void callGetAllCourses(List<Courses> courses );
 }

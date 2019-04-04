@@ -22,7 +22,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/courseCodeTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -42,19 +42,19 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toEndOf="@+id/courseCodeTV"
         app:layout_constraintTop_toBottomOf="@+id/toolbarwrap"
         tools:layout_editor_absoluteY="12dp" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/courseHoursTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/courseHoursET"
         android:text="Course Hours:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/courseCodeTV" />
 
     <EditText
         android:id="@+id/courseHoursET"
@@ -67,18 +67,18 @@
         android:inputType="numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toEndOf="@+id/courseHoursTV"
         app:layout_constraintTop_toBottomOf="@+id/courseCodeET" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/courseNameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/courseNameET"
         android:text="Course Name:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/courseHoursTV" />
 
     <EditText
         android:id="@+id/courseNameET"
@@ -92,35 +92,35 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.941"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintStart_toEndOf="@+id/courseNameTV"
         app:layout_constraintTop_toBottomOf="@+id/courseHoursET" />
 
 
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/levelTV"
         android:layout_width="wrap_content"
         android:layout_height="17dp"
         android:layout_marginStart="16dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/levelSpinner"
         android:text="Level:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/m_RelativeLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/preRL" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/semsterTV"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/semesterSpinner"
         android:text="Semister:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/levelTV" />
 
 
 
     <RelativeLayout
-        android:id="@+id/m_RelativeLayout"
+        android:id="@+id/preRL"
         android:layout_width="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/courseNameET"
@@ -131,19 +131,19 @@
 
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/preLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="vertical"
-        android:layout_toEndOf="@+id/textView7">
+        android:layout_toEndOf="@+id/preTV">
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/preTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -157,11 +157,58 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginTop="8dp"
-        android:onClick="addViews"
+        android:onClick="preAddViews"
         app:layout_constraintTop_toBottomOf="@+id/courseNameET"
         android:background="@drawable/ic_add_circle_blue_a400_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="155dp" />
+
+
+
+    <RelativeLayout
+        android:id="@+id/postRL"
+        android:layout_width="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/preRL"
+        app:layout_constraintEnd_toStartOf="@+id/addPost"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:id="@+id/postLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            android:layout_toEndOf="@+id/postTV">
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/postTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="Post courses:" />
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/addPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:onClick="postAddViews"
+        app:layout_constraintTop_toBottomOf="@+id/preRL"
+        android:background="@drawable/ic_add_circle_blue_a400_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="155dp" />
+
 
     <Spinner
         android:id="@+id/levelSpinner"
@@ -172,8 +219,8 @@
         android:layout_marginEnd="8dp"
         android:entries="@array/level_year"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/m_RelativeLayout" />
+        app:layout_constraintStart_toEndOf="@+id/courseCodeTV"
+        app:layout_constraintTop_toBottomOf="@+id/postRL" />
 
     <Spinner
         android:id="@+id/semesterSpinner"
@@ -184,7 +231,7 @@
         android:layout_marginEnd="8dp"
         android:entries="@array/simester"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintStart_toEndOf="@+id/courseCodeTV"
         app:layout_constraintTop_toBottomOf="@+id/levelSpinner" />
 
     <Button

@@ -1,4 +1,4 @@
-package com.heshamapps.srrs;
+package com.heshamapps.srrs.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.heshamapps.srrs.R;
 import com.heshamapps.srrs.admin.AdminMainActivity;
 import com.heshamapps.srrs.student.StudentMainActivity;
 import com.heshamapps.srrs.models.Users;
