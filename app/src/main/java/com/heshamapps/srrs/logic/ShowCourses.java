@@ -85,7 +85,7 @@ public class ShowCourses implements CompoundButton.OnCheckedChangeListener {
                        fragment.setArguments(bundle);
                        activity.getFragmentManager().beginTransaction()
                                .replace(R.id.fragment_frame, fragment,"2").commit();
-                   } // error here
+                   }
 
                    else if (Integer.parseInt(currentFragment.getTag())==2){
                        if(sourceTotalInProgress<64)

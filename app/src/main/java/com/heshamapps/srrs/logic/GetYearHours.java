@@ -7,35 +7,36 @@ import com.heshamapps.srrs.student.pastCoursesFragment;
 import com.heshamapps.srrs.util.MyCallback2;
 
 
-public class GetYearHours {
-    private FirebaseFirestore firestore;
-    int totalInProgress =0 ;
-    int totalNotTaken=0;
-    int totalPassed=0;
+class GetYearHours {
+    private FirebaseFirestore fireStore;
+    private int totalInProgressHours =0 ;
+    private int totalNotTakenHours=0;
+    private int totalPassedHours=0;
 
-    public GetYearHours() {
-        firestore = FirebaseFirestore.getInstance();
+    GetYearHours() {
+        fireStore = FirebaseFirestore.getInstance();
     }
 
 
-    public void readData(MyCallback2 myCallback) {
+    void readData(MyCallback2 myCallback) {
 
-        firestore.collection("courses").get().addOnCompleteListener(task -> {
+        fireStore.collection("courses").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
+                    if(task.getResult()!=null){
                     Courses myObject = document.toObject(Courses.class);
                     if(myObject.getStatus().contains("inProgress")){
-                        totalInProgress=totalInProgress+myObject.getCourseHours();
+                        totalInProgressHours=totalInProgressHours+myObject.getCourseHours();
                     }
                     else if(myObject.getStatus().contains("notTaken")){
-                        totalNotTaken=totalNotTaken+myObject.getCourseHours();
+                        totalNotTakenHours=totalNotTakenHours+myObject.getCourseHours();
                     }
                     else if(myObject.getStatus().contains("passed")){
-                        totalPassed=totalPassed+myObject.getCourseHours();
+                        totalPassedHours=totalPassedHours+myObject.getCourseHours();
                     }
-
+                    }
                 }
-                myCallback.onCallback(totalPassed);
+                myCallback.onCallback(totalPassedHours);
             }
         });
     }

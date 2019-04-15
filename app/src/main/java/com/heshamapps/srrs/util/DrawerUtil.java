@@ -1,4 +1,5 @@
 package com.heshamapps.srrs.util;
+import com.heshamapps.srrs.R;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -10,7 +11,6 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.heshamapps.srrs.login.LoginActivity;
-import com.heshamapps.srrs.R;
 import com.heshamapps.srrs.aboutFragment;
 import com.heshamapps.srrs.student.AnyYearFragment;
 import com.heshamapps.srrs.student.arEnFragment;
@@ -75,7 +75,8 @@ public class DrawerUtil {
                                 }
                             })
                             .build();
-                    mDrawerResult.deselect(mItemLogin.getIdentifier());                    break;
+                    mDrawerResult.deselect(mItemLogin.getIdentifier());
+                    break;
                 case CONFIG.STUDENT:
                     mDrawerResult = new DrawerBuilder()
                             .withActivity(activity)
@@ -113,7 +114,7 @@ public class DrawerUtil {
                     })
                     .build();
         }
-        mDrawerResult.closeDrawer();
+ //       mDrawerResult.closeDrawer();
     }
 
     private static boolean isUserSignedIn(){

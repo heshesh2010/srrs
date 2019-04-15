@@ -35,11 +35,13 @@
     </string-array>
 
     <string-array name="AR">
+        <item>I'm new student</item>
         <item>AR111</item>
         <item>AR112</item>
     </string-array>
 
     <string-array name="EL">
+        <item>I'm new student</item>
         <item>EL097</item>
         <item>EL098</item>
         <item>EL099</item>

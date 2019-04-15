@@ -91,7 +91,7 @@ public class arEnFragment extends Fragment {
         Courses GR101 = new Courses("GR101");
         GR101.setCourseHours(3);
 
-        Courses  GR131orGR111 = new Courses(" GR131orGR111");
+        Courses  GR131orGR111 = new Courses("GR131ORGR111");
         GR131orGR111.setCourseHours(3);
 
         Courses TU170 = new Courses("TU170");
@@ -132,12 +132,21 @@ public class arEnFragment extends Fragment {
         coursesList.clear();
         switch (EL.getSelectedItem().toString()) {
 
+            case "I'm new student":
+                coursesList.add(EL097);
+                coursesList.add(EL098);
+                coursesList.add(GR101);
+                coursesList.add(GR131orGR111);
+
+                break;
             case "EL097":
                 // register 97
                 coursesListTaken.add(EL097);
 
                 coursesList.add(EL098);
-                coursesList.add(EL099);
+
+                coursesList.add(GR101);
+                coursesList.add(GR131orGR111);
 
                 break;
 
@@ -212,6 +221,9 @@ public class arEnFragment extends Fragment {
         }
 
         switch (AR.getSelectedItem().toString()){
+            case "I'm new student":
+                coursesList.add(AR111);
+                break;
             case "AR111":
                 coursesList.add(AR112);
                 coursesListTaken.add(AR111);
@@ -246,11 +258,14 @@ public class arEnFragment extends Fragment {
         ButterKnife.bind(this, view);
         db = FirebaseFirestore.getInstance();
         FirebaseApp.initializeApp(getActivity());
+        makeAllCoursesNotTaken();
         return view;
 
     }
 
+    private void makeAllCoursesNotTaken() {
 
+    }
 
 
     @Override

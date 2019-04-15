@@ -26,7 +26,7 @@ public class AdminMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_main);
         ButterKnife.bind(this);
 
-       // new DrawerUtil(this,mToolbar,  FirebaseAuth.getInstance());
+        new DrawerUtil(this,mToolbar,  FirebaseAuth.getInstance());
 
     }
 
