@@ -22,7 +22,7 @@
             android:textSize="30sp"
             android:layout_centerVertical="true"
             android:layout_height="wrap_content"
-            android:text="@string/third_year"/>
+            android:text="@string/fourth_year"/>
 
     </RelativeLayout>
 
@@ -106,7 +106,7 @@
                     android:id="@+id/first_gpa"
                     android:hint="GPA"
                     android:tag="1"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_marginStart="5dp"
                     android:layout_width="wrap_content"
@@ -198,7 +198,7 @@
                     android:id="@+id/second_gpa"
                     android:hint="GPA"
                     android:tag="1"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_marginStart="5dp"
                     android:layout_width="wrap_content"
@@ -286,7 +286,7 @@
                     android:id="@+id/summer_gpa"
                     android:hint="GPA"
                     android:tag="1"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_marginStart="5dp"
                     android:layout_width="wrap_content"

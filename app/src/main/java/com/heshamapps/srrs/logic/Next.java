@@ -1,6 +1,7 @@
 package com.heshamapps.srrs.logic;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -26,6 +27,7 @@ public class Next {
     private ArrayList<String> postCourses = new ArrayList<>();
     private ArrayList<String> preCourses = new ArrayList<>();
     private ArrayList<String> graduationPreReq = new ArrayList<>();
+    ProgressDialog dialog;
 
     public Next() {
         clearAllArrays();
@@ -42,12 +44,17 @@ public class Next {
     }
 
     public void do_next(RelativeLayout parent, List<String> coursesSelected, List<String> coursesNotSelected, Activity activity, View view) {
+         dialog = ProgressDialog.show(activity, "",
+                "Loading. Please wait...", true);
         new GetAllCourses().getAllCourses(allCourses -> {
 
             // check if student graduated or not
             new GetYearHours().readData(TotalTakenHours -> {
                     if(TotalTakenHours==131) {
 
+                        if(dialog.isShowing()){
+                            dialog.dismiss();
+                        }
                         graduationFragment fragment = new graduationFragment();
                         activity.getFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_frame, fragment, "2").commit();
@@ -177,10 +184,13 @@ else {
                     }
                 }
             }
-
+                        if(dialog.isShowing()){
+                            dialog.dismiss();
+                        }
             new Rank(finalPassedArray, Integer.valueOf(((ScrollView) parent.getChildAt(0)).getChildAt(0).getTag().toString()), activity, view);
 
     };
+
 
 });
 });

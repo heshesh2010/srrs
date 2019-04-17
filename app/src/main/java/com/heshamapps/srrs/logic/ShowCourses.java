@@ -14,8 +14,12 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.heshamapps.srrs.R;
 import com.heshamapps.srrs.models.Courses;
+import com.heshamapps.srrs.student.eighthYearFragment;
+import com.heshamapps.srrs.student.fifthYearFragment;
 import com.heshamapps.srrs.student.fourthYearFragment;
 import com.heshamapps.srrs.student.secondYearFragment;
+import com.heshamapps.srrs.student.seventhYearFragment;
+import com.heshamapps.srrs.student.sixYearFragment;
 import com.heshamapps.srrs.student.thirdYearFragment;
 import com.heshamapps.srrs.util.MyCallback2;
 
@@ -27,6 +31,7 @@ import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.dmoral.toasty.Toasty;
 
 public class ShowCourses implements CompoundButton.OnCheckedChangeListener {
 
@@ -104,6 +109,42 @@ public class ShowCourses implements CompoundButton.OnCheckedChangeListener {
                        fragment.setArguments(bundle);
                        activity.getFragmentManager().beginTransaction()
                                .replace(R.id.fragment_frame, fragment,"4").commit();
+                   }
+
+                  else if (Integer.parseInt(currentFragment.getTag())==4){
+
+                        fifthYearFragment fragment = new fifthYearFragment();
+                        fragment.setArguments(bundle);
+                        activity.getFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_frame, fragment,"5").commit();
+                    }
+
+                   else if (Integer.parseInt(currentFragment.getTag())==5){
+
+                       sixYearFragment fragment = new sixYearFragment();
+                       fragment.setArguments(bundle);
+                       activity.getFragmentManager().beginTransaction()
+                               .replace(R.id.fragment_frame, fragment,"6").commit();
+                   }
+
+                   else if (Integer.parseInt(currentFragment.getTag())==6){
+
+                       seventhYearFragment fragment = new seventhYearFragment();
+                       fragment.setArguments(bundle);
+                       activity.getFragmentManager().beginTransaction()
+                               .replace(R.id.fragment_frame, fragment,"7").commit();
+                   }
+                   else if (Integer.parseInt(currentFragment.getTag())==7){
+
+                       eighthYearFragment fragment = new eighthYearFragment();
+                       fragment.setArguments(bundle);
+                       activity.getFragmentManager().beginTransaction()
+                               .replace(R.id.fragment_frame, fragment,"8").commit();
+                   }
+
+                   else if (Integer.parseInt(currentFragment.getTag())==8){
+
+                       Toasty.error(activity,"Oh! you are not allowed to contiue more than 8 year").show();
                    }
                 }
             });

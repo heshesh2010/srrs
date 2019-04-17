@@ -24,6 +24,7 @@ import com.heshamapps.srrs.logic.Next;
 import com.heshamapps.srrs.logic.SaveAsInProgress;
 import com.heshamapps.srrs.logic.SaveAsTaken;
 import com.heshamapps.srrs.logic.ShowCourses;
+import com.heshamapps.srrs.logic.saveState;
 import com.heshamapps.srrs.models.Courses;
 
 import java.util.ArrayList;
@@ -105,6 +106,10 @@ public class FirstYearFragment extends Fragment  {
             else{
                 new ShowCourses((ArrayList<Courses>) bundle.getSerializable("Beginning"), 0,getActivity(),view);
             }
+            /*else here {
+                new ShowCourses((ArrayList<Courses>) bundle.getSerializable("state"), gettag ,getActivity(),view);
+
+            }*/
         }
 
 
@@ -272,9 +277,27 @@ public class FirstYearFragment extends Fragment  {
 
 
 
+    @Override
+    public void onPause() {
+        super.onPause();
 
 
+    }
+    @Override
+    public void onStop() {
+        // TODO Auto-generated method stub
+        super.onStop();
 
+        saveData();
+    }
+
+    private void saveData() {
+        // must check last term has courses then by it's v get all checked or not checked courses
+        // coursePassedhArray is empty then check v courses
+        // get parent view then check on first or second or summer then get the tag and current fragment tag also
+        // then i will get courses showing term tag and fragment tag some on ar/en and some on each fragment calls
+//new saveState(getActivity(),coursePassedhArray);
+    }
 
 
     @Override

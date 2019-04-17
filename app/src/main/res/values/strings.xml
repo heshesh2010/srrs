@@ -35,13 +35,13 @@
     </string-array>
 
     <string-array name="AR">
-        <item>I'm new student</item>
+        <item>none</item>
         <item>AR111</item>
         <item>AR112</item>
     </string-array>
 
     <string-array name="EL">
-        <item>I'm new student</item>
+        <item>none</item>
         <item>EL097</item>
         <item>EL098</item>
         <item>EL099</item>
@@ -104,6 +104,11 @@
     <string name="AnyYear">start from any year</string>
     <string name="third_year">third year</string>
     <string name="start">from begining</string>
+    <string name="fourth_year">fourth year</string>
+    <string name="sixth_year">sixth year</string>
+    <string name="seventh_year">seventh year</string>
+    <string name="fifth_year">fifth year</string>
+    <string name="eighth_year">eight year</string>
 
 
 </resources>

@@ -132,9 +132,11 @@ public class arEnFragment extends Fragment {
         coursesList.clear();
         switch (EL.getSelectedItem().toString()) {
 
-            case "I'm new student":
+            case "none":
                 coursesList.add(EL097);
                 coursesList.add(EL098);
+                coursesList.add(EL099);
+
                 coursesList.add(GR101);
                 coursesList.add(GR131orGR111);
 
@@ -144,6 +146,7 @@ public class arEnFragment extends Fragment {
                 coursesListTaken.add(EL097);
 
                 coursesList.add(EL098);
+                coursesList.add(EL099);
 
                 coursesList.add(GR101);
                 coursesList.add(GR131orGR111);
@@ -221,7 +224,7 @@ public class arEnFragment extends Fragment {
         }
 
         switch (AR.getSelectedItem().toString()){
-            case "I'm new student":
+            case "none":
                 coursesList.add(AR111);
                 break;
             case "AR111":
@@ -238,7 +241,6 @@ public class arEnFragment extends Fragment {
         new SaveAsTaken().saveAnyCourses(coursesListTaken);
 
         FirstYearFragment fragment = new FirstYearFragment();
-    //    AnyYearFragment fragment = new AnyYearFragment();
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("Beginning", (Serializable) coursesList);

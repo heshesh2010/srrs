@@ -22,7 +22,7 @@
         android:textSize="30sp"
         android:layout_centerVertical="true"
         android:layout_height="wrap_content"
-        android:text="@string/first_year"/>
+        android:text="@string/eighth_year"/>
 
 </RelativeLayout>
 
