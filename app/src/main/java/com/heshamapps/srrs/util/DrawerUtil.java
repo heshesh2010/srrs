@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.heshamapps.srrs.logic.UpdateStatus;
 import com.heshamapps.srrs.login.LoginActivity;
 import com.heshamapps.srrs.aboutFragment;
 import com.heshamapps.srrs.student.AnyYearFragment;
@@ -249,6 +250,7 @@ public class DrawerUtil {
 
     private static void signOutUser() {
         //Sign out
+        new UpdateStatus();
         mFirebaseAuth.signOut();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (!isUserSignedIn()) {

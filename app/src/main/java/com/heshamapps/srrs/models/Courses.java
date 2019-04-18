@@ -13,6 +13,10 @@ public class Courses  implements Serializable ,Comparable {
         return status;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     private String status;
     private int courseHours  ,level , coursesCount;
     private ArrayList<String>  postCourses;

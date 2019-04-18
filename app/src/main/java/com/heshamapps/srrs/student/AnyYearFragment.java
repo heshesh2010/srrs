@@ -112,8 +112,9 @@ public class AnyYearFragment extends Fragment {
 
         }
 
-        new NextAnyYear().do_next(Integer.parseInt(semster.getSelectedItem().toString()) , Integer.parseInt(year.getSelectedItem().toString()), coursesSelected, NotSelected,getActivity(),getView());
         new SaveAsTaken().saveAnyCourses(coursesSelected);
+
+        new NextAnyYear().do_next(Integer.parseInt(semster.getSelectedItem().toString()) , Integer.parseInt(year.getSelectedItem().toString()), coursesSelected, NotSelected,getActivity(),getView());
 
 
     }

@@ -89,7 +89,7 @@ public class seventhYearFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_six_year, container, false);
+        View view = inflater.inflate(R.layout.fragment_seventh_year, container, false);
         ButterKnife.bind(this, view);
         FirebaseApp.initializeApp(getActivity());
 
@@ -97,7 +97,7 @@ public class seventhYearFragment extends Fragment {
 
         if (bundle != null) {
             if (bundle.getSerializable("Beginning") == null && bundle.getSerializable("AnyYear") != null) {
-                new ShowCourses((ArrayList<Courses>) bundle.getSerializable("AnyYear"), 1, getActivity(), view);
+                new ShowCourses((ArrayList<Courses>) bundle.getSerializable("AnyYear"), bundle.getInt("currentTerm"), getActivity(), view);
 
             } else {
                 new ShowCourses((ArrayList<Courses>) bundle.getSerializable("postCourses"), 0,getActivity(),view);

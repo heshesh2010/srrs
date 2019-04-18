@@ -106,7 +106,7 @@ public class secondYearFragment extends Fragment {
 
         if (bundle != null) {
             if(bundle.getSerializable("Beginning")==null&&bundle.getSerializable("AnyYear")!=null){
-                new ShowCourses((ArrayList<Courses>) bundle.getSerializable("AnyYear"), 1,getActivity(),view);
+                new ShowCourses((ArrayList<Courses>) bundle.getSerializable("AnyYear"), bundle.getInt("currentTerm"),getActivity(),view);
 
             }
             else{
