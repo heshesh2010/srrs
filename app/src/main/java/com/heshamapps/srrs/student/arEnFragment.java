@@ -202,7 +202,7 @@ public class arEnFragment extends Fragment {
                 // Show postCourses as normal and register El111  as pass
                 break;
 
-            case "El112":
+            case "EL112":
                 // register 97+98 + 99 + el11+ el112
                 coursesListTaken.add(EL097);
                 coursesListTaken.add(EL098);
@@ -234,6 +234,7 @@ public class arEnFragment extends Fragment {
 
                 case "AR112":
                     coursesListTaken.add(AR112);
+                    coursesListTaken.add(AR111);
                     break;
         }
 
