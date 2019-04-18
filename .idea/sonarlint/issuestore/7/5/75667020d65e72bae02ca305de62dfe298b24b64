@@ -1,22 +1,0 @@
-
-dsquid:UselessImportCheck";Remove this unused import 'androidx.fragment.app.Fragment'.(‚Š©“ùÿÿÿÿ
-Vsquid:UselessImportCheck"-Remove this unused import 'android.os.Build'.(ãÇ¤Úıÿÿÿÿ
-psquid:UselessImportCheck"LRemove this unused import 'com.google.firebase.firestore.DocumentReference'.(«Ë
-\squid:UselessImportCheck",Remove this unused import 'android.net.Uri'.(òêû‘ıÿÿÿÿ8îÓµ·-
-esquid:MaximumInheritanceDepth'"<This class has 6 parents which is greater than 5 authorized.(ìê’ú
-\squid:UselessImportCheck"3Remove this unused import 'android.widget.Spinner'.(¸£ÃØüÿÿÿÿ
-`squid:UselessImportCheck"<Remove this unused import 'androidx.annotation.RequiresApi'.(å„» 
-Wsquid:UselessImportCheck	".Remove this unused import 'android.view.View'.(Ø½­äşÿÿÿÿ
-Vsquid:UselessImportCheck"-Remove this unused import 'org.w3c.dom.Text'.(¶Äè‹şÿÿÿÿ
-csquid:UselessImportCheck":Remove this unused import 'android.widget.RelativeLayout'.(ü¯ğõşÿÿÿÿ
-Zsquid:UselessImportCheck"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ
-[squid:UselessImportCheck
-"2Remove this unused import 'android.widget.Button'.(²òıÿÿÿÿ
-asquid:UselessImportCheck"8Remove this unused import 'android.widget.LinearLayout'.(çîšçúÿÿÿÿ
-]squid:UselessImportCheck$"4Remove this unused import 'es.dmoral.toasty.Toasty'.(–‹¹©øÿÿÿÿ
-Tsquid:UselessImportCheck"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ
-Wsquid:UselessImportCheck"4Remove this unused import 'android.widget.CheckBox'.(Ùáb
-tsquid:UselessImportCheck"KRemove this unused import 'com.google.firebase.firestore.DocumentSnapshot'.(´Ëá¿ÿÿÿÿÿ
-isquid:UselessImportCheck">Remove this unused import 'com.heshamapps.srrs.aboutFragment'.(·×·¡8‹Œ¶·-
-]squid:UselessImportCheck"4Remove this unused import 'android.widget.TextView'.(„Ë‚ˆÿÿÿÿÿ
-osquid:UselessImportCheck"KRemove this unused import 'com.google.android.gms.tasks.OnSuccessListener'.(íå¡

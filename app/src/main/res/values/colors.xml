@@ -5,6 +5,8 @@
         <color name="colorPrimary">#78909C</color>
         <color name="colorPrimaryDark">#263238</color>
         <color name="colorAccent">#448AFF</color>
+    <color name="colorBack">#F7F7F7</color>
+
 
         <color name="bg_login">#26ae90</color>
         <color name="bg_register">#2e3237</color>

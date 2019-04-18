@@ -39,7 +39,6 @@ public class DrawerUtil {
     private static PrimaryDrawerItem mItemLogout;
     private static PrimaryDrawerItem mItemVerifiedProfile;
     private static PrimaryDrawerItem mItemUnverifiedProfile;
-    private static PrimaryDrawerItem mItemSettings;
     private static PrimaryDrawerItem mItemPastCourses;
     private static PrimaryDrawerItem mItemAnyYear;
     private static PrimaryDrawerItem mItemAbout;
@@ -66,7 +65,7 @@ public class DrawerUtil {
                             .withActivity(activity)
                             .withAccountHeader(setupAccountHeader())
                             .withToolbar(mToolbar)
-                            .addDrawerItems(mItemLogout, new DividerDrawerItem(),mItemSettings)
+                            .addDrawerItems(mItemLogout, new DividerDrawerItem(),mItemAbout)
                             .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                                 @Override
                                 public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -82,7 +81,7 @@ public class DrawerUtil {
                             .withActivity(activity)
                             .withAccountHeader(setupAccountHeader())
                             .withToolbar(mToolbar)
-                            .addDrawerItems(mItemLogout, new DividerDrawerItem(),mItemSettings,mItemPastCourses,mItemAnyYear,mItemStart)
+                            .addDrawerItems(mItemLogout, new DividerDrawerItem(),mItemAbout,mItemPastCourses,mItemAnyYear,mItemStart)
                             .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                                 @Override
                                 public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -104,7 +103,7 @@ public class DrawerUtil {
                     .withActivity(activity)
                     .withAccountHeader(setupAccountHeader())
                     .withToolbar(mToolbar)
-                    .addDrawerItems( mItemLogin, new DividerDrawerItem(),mItemSettings)
+                    .addDrawerItems( mItemLogin, new DividerDrawerItem(),mItemAbout)
                     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                         @Override
                         public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -128,7 +127,7 @@ public class DrawerUtil {
         mItemLogin = new PrimaryDrawerItem().withIdentifier(3).withName(R.string.login_menu_item).withIcon(activity.getResources().getDrawable(R.mipmap.ic_login_black_48dp));
         mItemLogout = new PrimaryDrawerItem().withIdentifier(4).withName(R.string.logout_menu_item).withIcon(activity.getResources().getDrawable(R.mipmap.ic_logout_black_48dp));
         mItemPastCourses = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.pastCourses).withIcon(activity.getResources().getDrawable(R.mipmap.ic_settings_black_48dp));
-        mItemSettings = new PrimaryDrawerItem().withIdentifier(6).withName(R.string.settings).withIcon(activity.getResources().getDrawable(R.mipmap.ic_settings_black_48dp));
+       // mItemSettings = new PrimaryDrawerItem().withIdentifier(6).withName(R.string.settings).withIcon(activity.getResources().getDrawable(R.mipmap.ic_settings_black_48dp));
         mItemAbout = new PrimaryDrawerItem().withIdentifier(7).withName(R.string.about).withIcon(activity.getResources().getDrawable(R.mipmap.ic_settings_black_48dp));
         mItemAnyYear = new PrimaryDrawerItem().withIdentifier(8).withName(R.string.AnyYear).withIcon(activity.getResources().getDrawable(R.mipmap.ic_settings_black_48dp));
         mItemStart =  new PrimaryDrawerItem().withIdentifier(9).withName(R.string.start).withIcon(activity.getResources().getDrawable(R.mipmap.ic_settings_black_48dp));

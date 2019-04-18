@@ -1,6 +1,0 @@
-
-Ksquid:S1066L"/Merge this if statement with the enclosing one.(€¢óÒþÿÿÿÿ
-nsquid:S3776%"RRefactor this method to reduce its Cognitive Complexity from 59 to the 15 allowed.(•Ã¡¸øÿÿÿÿ
-jsquid:UselessImportCheck	"ARemove this unused import 'com.heshamapps.srrs.util.MyCallback5'.(¼Ï¶Žüÿÿÿÿ
-lsquid:S00116"URename this field "AllCourses" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬­Ž~
-ksquid:S00100%"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•Ã¡¸øÿÿÿÿ

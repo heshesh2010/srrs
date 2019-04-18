@@ -63,8 +63,8 @@ public class LoginActivity extends Activity {
                 .build();
         db.setFirestoreSettings(settings);
 
-        //  lunchAdminScreen();
-       lunchStudentScreen();
+       //   lunchAdminScreen();
+     //  lunchStudentScreen();
 
 
     }

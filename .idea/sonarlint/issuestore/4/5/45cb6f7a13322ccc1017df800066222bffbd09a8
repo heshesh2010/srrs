@@ -1,23 +1,0 @@
-
-ssquid:S001163"VRename this field "second_next" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥êê«ıÿÿÿÿ
-msquid:S001160"URename this field "first_next" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ¯ã’
-ssquid:S001169"VRename this field "summer_next" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ì‘Öêûÿÿÿÿ
-ssquid:S001166"VRename this field "second_save" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øçƒÊşÿÿÿÿ
-jsquid:S00117Ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹ı¼
-osquid:S2293Q"YReplace the type specification in this constructor call with the diamond operator ("<>").(¨¼ÍB
-jsquid:S00101)"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(¾ìÇ÷ûÿÿÿÿ
-gsquid:S1192¼"JDefine a constant instead of duplicating this literal "\\(.*?\\)" 3 times.(¬Íš¢ÿÿÿÿÿ
-nsquid:S00116?"VRename this field "summer_save" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨“ˆ÷
-psquid:S2293O"YReplace the type specification in this constructor call with the diamond operator ("<>").(ã¾”º
-msquid:S00116<"URename this field "first_save" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸É¡
-usquid:S2293P"YReplace the type specification in this constructor call with the diamond operator ("<>").(æ«©›ùÿÿÿÿ
-rsquid:S00116H"URename this field "summer_gpa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²é„¡ûÿÿÿÿ
-psquid:S2293N"YReplace the type specification in this constructor call with the diamond operator ("<>").(Çÿ 
-?squid:S1185]"(Remove this method to simply inherit it.(ßìê¯
-@squid:S1185µ"(Remove this method to simply inherit it.(ˆÏ€¶
-Esquid:S1185»"(Remove this method to simply inherit it.(Ç™²“øÿÿÿÿ
-qsquid:S00116B"TRename this field "first_gpa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“÷µ´ÿÿÿÿÿ
-osquid:S2293R"YReplace the type specification in this constructor call with the diamond operator ("<>").(ù¦œ
-msquid:S00116E"URename this field "second_gpa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áäé€
-Usquid:UselessImportCheck",Remove this unused import 'android.net.Uri'.(òêû‘ıÿÿÿÿ
-jsquid:S00117°"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹ı¼

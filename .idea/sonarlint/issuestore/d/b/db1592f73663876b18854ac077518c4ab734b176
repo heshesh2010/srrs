@@ -1,22 +1,0 @@
-
-Qsquid:UselessParenthesesCheck"!Remove these useless parentheses.(ºìó\8Ì…Ú¹-
-usquid:S2293I"YReplace the type specification in this constructor call with the diamond operator ("<>").(æ«©›ùÿÿÿÿ
-zsquid:S001163"VRename this field "summer_next" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ì‘Öêûÿÿÿÿ8ÄÎÓ¹-
-ysquid:S00116B"URename this field "summer_gpa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²é„¡ûÿÿÿÿ8ÄÎÓ¹-
-psquid:S3776µ"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(èğ‡8âå€º-
-qsquid:S00117½"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹ı¼8ÄÎÓ¹-
-Lsquid:S1185™"(Remove this method to simply inherit it.(Ç™²“øÿÿÿÿ8ÄÎÓ¹-
-tsquid:S00116?"URename this field "second_gpa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áäé€8ÄÎÓ¹-
-psquid:S2293H"YReplace the type specification in this constructor call with the diamond operator ("<>").(ã¾”º
-Fsquid:S1185U"(Remove this method to simply inherit it.(ßìê¯8ÄÎÓ¹-
-Qsquid:UselessParenthesesCheck}"!Remove these useless parentheses.(ØØÚ¥8†Ù¹-
-tsquid:S001166"URename this field "first_save" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸É¡8ÄÎÓ¹-
-zsquid:S001160"VRename this field "second_save" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øçƒÊşÿÿÿÿ8ÄÎÓ¹-
-usquid:S001169"VRename this field "summer_save" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨“ˆ÷8ÄÎÓ¹-
-Qsquid:UselessParenthesesCheck"!Remove these useless parentheses.(ß¢ßÅ8Ì…Ú¹-
-osquid:S2293K"YReplace the type specification in this constructor call with the diamond operator ("<>").(ù¦œ
-osquid:S2293J"YReplace the type specification in this constructor call with the diamond operator ("<>").(¨¼ÍB
-xsquid:S00116<"TRename this field "first_gpa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“÷µ´ÿÿÿÿÿ8ÄÎÓ¹-
-tsquid:S00116*"URename this field "first_next" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ¯ã’8ÄÎÓ¹-
-wsquid:S2293G"YReplace the type specification in this constructor call with the diamond operator ("<>").(Çÿ 8ÄÎÓ¹-
-zsquid:S00116-"VRename this field "second_next" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥êê«ıÿÿÿÿ8ÄÎÓ¹-
